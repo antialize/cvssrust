@@ -68,7 +68,7 @@ impl Equations {
         combined_score[1] = score_dists[1];
         combined_score[3] = score_dists[3];
         combined_score[4] = score_dists[4];
-        let mut distances = dbg!(self.severity_distances());
+        let mut distances = self.severity_distances();
         distances[0] /= Eq1::level_depth(self.eq1.level()) as f64;
         distances[1] /= Eq2::level_depth(self.eq2.level()) as f64;
 
@@ -119,10 +119,10 @@ impl Equations {
     }
 
     pub(super) fn score(&self) -> Score {
-        let eqs = dbg!(self.levels_array());
-        let base = dbg!(base_score(eqs));
-        let score_dists = dbg!(Self::scoring_distances(base.0, eqs));
-        let (prop_dist, score_dists) = dbg!(self.proportion_distances(score_dists));
+        let eqs = self.levels_array();
+        let base = base_score(eqs);
+        let score_dists = Self::scoring_distances(base.0, eqs);
+        let (prop_dist, score_dists) = self.proportion_distances(score_dists);
         let mut count = 0;
         let total: f64 = score_dists
             .iter()
